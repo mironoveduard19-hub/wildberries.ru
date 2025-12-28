@@ -1,90 +1,100 @@
-<div class="wb-fortune">
-  <div class="wb-header">
-    <h1>Колесо Фортуны</h1>
-    <p>Крути и забирай свой приз</p>
-  </div>
-
-  <div class="wheel-box">
-    <div class="pointer"></div>
-    <div class="wheel" id="wheel"></div>
-  </div>
-
-  <button class="spin-btn" id="spinBtn">Крутить</button>
-
-  <div class="result" id="result"></div>
-</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Колесо Фортуны</title>
 
 <style>
-.wb-fortune {
-  background: linear-gradient(180deg, #7f1bd4, #5b0fa8);
-  border-radius: 24px;
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, #7f1bd4, #4b0082);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 390px;
   padding: 24px 16px 32px;
   color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  max-width: 360px;
-  margin: 0 auto;
 }
 
-.wb-header h1 {
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
   font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 6px;
+  margin: 0;
 }
 
-.wb-header p {
-  font-size: 15px;
+.header p {
   opacity: 0.9;
-  margin-bottom: 18px;
+  font-size: 15px;
+  margin-top: 6px;
 }
 
-.wheel-box {
+.wheel-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  margin: 0 auto 24px;
-}
-
-.wheel {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 8px solid #ffd54f;
-  background: conic-gradient(
-    #ff4d6d 0deg 60deg,
-    #ffb703 60deg 120deg,
-    #6f42c1 120deg 180deg,
-    #ff6f91 180deg 240deg,
-    #ffd166 240deg 300deg,
-    #845ec2 300deg 360deg
-  );
-  box-shadow: 0 0 25px rgba(255,213,79,0.6);
-  transition: transform 4.5s cubic-bezier(0.15, 0.85, 0.25, 1);
+  aspect-ratio: 1/1;
+  margin: 24px auto;
 }
 
 .pointer {
   position: absolute;
-  top: -10px;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
-  border-bottom: 26px solid #ffd54f;
+  border-bottom: 28px solid #ffd54f;
   z-index: 5;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 10px solid #ffd54f;
+  background: conic-gradient(
+    #ff4d6d 0deg 60deg,
+    #ffb703 60deg 120deg,
+    #845ec2 120deg 180deg,
+    #ff6f91 180deg 240deg,
+    #ffd166 240deg 300deg,
+    #6f42c1 300deg 360deg
+  );
+  box-shadow: 0 0 30px rgba(255,213,79,0.6);
+  transition: transform 4.8s cubic-bezier(0.12, 0.85, 0.25, 1);
 }
 
 .spin-btn {
   width: 100%;
   background: linear-gradient(90deg, #ffb703, #ffd54f);
+  color: #4b0082;
   border: none;
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 16px 0;
   font-size: 18px;
   font-weight: 700;
-  color: #5b0fa8;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
 }
 
 .spin-btn:active {
@@ -92,12 +102,45 @@
 }
 
 .result {
-  margin-top: 20px;
+  margin-top: 22px;
+  text-align: center;
   font-size: 18px;
   font-weight: 600;
-  min-height: 24px;
+  min-height: 28px;
+}
+
+.footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.8;
 }
 </style>
+</head>
+
+<body>
+
+<div class="app">
+  <div class="header">
+    <h1>🎁 Колесо Фортуны</h1>
+    <p>Крути и забирай свой приз</p>
+  </div>
+
+  <div class="wheel-wrapper">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
+  </div>
+
+  <button class="spin-btn" id="spinBtn">Крутить</button>
+
+  <div class="result" id="result"></div>
+
+  <div class="footer">
+    <span>🎯 Гарантированный приз</span>
+    <span>⏱️ 1 попытка</span>
+  </div>
+</div>
 
 <script>
 const wheel = document.getElementById('wheel');
@@ -105,10 +148,10 @@ const btn = document.getElementById('spinBtn');
 const result = document.getElementById('result');
 
 const prizes = [
-  '🎧 Наушники',
+  '🎧 Беспроводные наушники',
   '💸 Скидка 20%',
   '🎁 Подарок-сюрприз',
-  '🧸 Игрушка',
+  '🧸 Мягкая игрушка',
   '⭐️ 500 бонусов',
   '🎟 Сертификат 1000 ₽'
 ];
@@ -128,8 +171,11 @@ btn.onclick = () => {
   wheel.style.transform = rotate(${rotation}deg);
 
   setTimeout(() => {
-    result.textContent = 🎉 Ваш приз: ${prizes[prizeIndex]};
+    result.textContent = 🎉 Вы выиграли: ${prizes[prizeIndex]};
     spinning = false;
-  }, 4600);
+  }, 5000);
 };
 </script>
+
+</body>
+</html>
