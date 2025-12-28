@@ -6,22 +6,20 @@
 <title>Колесо Фортуны</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
+* { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
   background: linear-gradient(180deg, #7f1bd4, #4b0082);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .app {
@@ -42,8 +40,8 @@ body {
 }
 
 .header p {
-  opacity: 0.9;
   font-size: 15px;
+  opacity: 0.9;
   margin-top: 6px;
 }
 
@@ -108,14 +106,6 @@ body {
   font-weight: 600;
   min-height: 28px;
 }
-
-.footer {
-  margin-top: 24px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  opacity: 0.8;
-}
 </style>
 </head>
 
@@ -135,11 +125,6 @@ body {
   <button class="spin-btn" id="spinBtn">Крутить</button>
 
   <div class="result" id="result"></div>
-
-  <div class="footer">
-    <span>🎯 Гарантированный приз</span>
-    <span>⏱️ 1 попытка</span>
-  </div>
 </div>
 
 <script>
@@ -156,13 +141,12 @@ const prizes = [
   '🎟 Сертификат 1000 ₽'
 ];
 
-let spinning = false;
 let rotation = 0;
+let spinning = false;
 
-btn.onclick = () => {
+btn.addEventListener('click', () => {
   if (spinning) return;
   spinning = true;
-  result.textContent = '';
 
   const prizeIndex = Math.floor(Math.random() * prizes.length);
   const sector = 360 / prizes.length;
@@ -174,7 +158,7 @@ btn.onclick = () => {
     result.textContent = 🎉 Вы выиграли: ${prizes[prizeIndex]};
     spinning = false;
   }, 5000);
-};
+});
 </script>
 
 </body>
