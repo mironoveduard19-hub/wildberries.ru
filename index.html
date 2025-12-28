@@ -1,0 +1,134 @@
+<div id="fortune-wrapper">
+  <h1>🎁 Колесо Фортуны</h1>
+  <p class="subtitle">Крути и выигрывай приз!</p>
+
+  <div class="wheel-container">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
+  </div>
+
+  <button id="spinBtn">КРУТИТЬ</button>
+
+  <div id="result"></div>
+</div>
+
+<style>
+#fortune-wrapper {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background: radial-gradient(circle at top, #8a2be2, #4b0082);
+  padding: 40px 20px;
+  border-radius: 20px;
+  color: #fff;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+#fortune-wrapper h1 {
+  margin-bottom: 10px;
+  font-size: 32px;
+}
+
+.subtitle {
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+.wheel-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 30px;
+}
+
+.wheel {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 10px solid #ffd700;
+  background: conic-gradient(
+    #ff4d6d 0deg 60deg,
+    #ffb703 60deg 120deg,
+    #6a4c93 120deg 180deg,
+    #ff8fab 180deg 240deg,
+    #ffd166 240deg 300deg,
+    #845ec2 300deg 360deg
+  );
+  transition: transform 4s cubic-bezier(0.17, 0.67, 0.23, 0.99);
+}
+
+.pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 30px solid #ffd700;
+  z-index: 10;
+}
+
+#spinBtn {
+  background: linear-gradient(45deg, #ffb703, #ffd700);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #4b0082;
+  transition: transform 0.2s;
+}
+
+#spinBtn:hover {
+  transform: scale(1.05);
+}
+
+#result {
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+</style>
+
+<script>
+const wheel = document.getElementById('wheel');
+const result = document.getElementById('result');
+const spinBtn = document.getElementById('spinBtn');
+
+const prizes = [
+  '🎧 Наушники',
+  '💸 Скидка 20%',
+  '🎁 Подарок-сюрприз',
+  '🧸 Мягкая игрушка',
+  '⭐️ 500 бонусов',
+  '🎟 Сертификат 1000 ₽'
+];
+
+let isSpinning = false;
+let rotation = 0;
+
+spinBtn.addEventListener('click', () => {
+  if (isSpinning) return;
+  isSpinning = true;
+  result.textContent = '';
+
+  const prizeIndex = Math.floor(Math.random() * prizes.length);
+  const anglePerPrize = 360 / prizes.length;
+
+  const extraSpins = 5 * 360;
+  const targetAngle =
+    extraSpins +
+    (360 - prizeIndex * anglePerPrize - anglePerPrize / 2);
+
+  rotation += targetAngle;
+  wheel.style.transform = rotate(${rotation}deg);
+
+  setTimeout(() => {
+    result.textContent = 🎉 Вы выиграли: ${prizes[prizeIndex]}!;
+    isSpinning = false;
+  }, 4200);
+});
+</script>
